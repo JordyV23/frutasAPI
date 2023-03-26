@@ -16,12 +16,15 @@ class Server {
   listen() {
     this.app.listen(2323, () => {
       console.log(
-        `El servidor esta corriendo en el puerto http://localhost:2323/frutas`
+        `El servidor esta corriendo`
       );
     });
   }
 
   routes() {
+    this.app.get('/', (req,res)=> {
+      res.redirect('/frutas')
+    })
     this.app.use(this.usersPath, require("../routes/frutas.route"));
   }
 
