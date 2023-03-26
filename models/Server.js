@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const conectorMONGO = require("../database/mongo");
 
 class Server {
@@ -15,20 +16,19 @@ class Server {
 
   listen() {
     this.app.listen(2323, () => {
-      console.log(
-        `El servidor esta corriendo`
-      );
+      console.log(`El servidor esta corriendo`);
     });
   }
 
   routes() {
-    this.app.get('/', (req,res)=> {
-      res.redirect('/frutas')
-    })
+    this.app.get("/", (req, res) => {
+      res.redirect("/frutas");
+    });
     this.app.use(this.usersPath, require("../routes/frutas.route"));
   }
 
   middleWares() {
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.static("public"));
   }
